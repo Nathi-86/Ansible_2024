@@ -1,0 +1,17 @@
+
+[rhel8]
+node1
+test1
+
+[rhel9]
+tower
+node3
+
+[oel8]
+node2
+
+[linux:children]
+rhel8
+rhel9
+oel8
+

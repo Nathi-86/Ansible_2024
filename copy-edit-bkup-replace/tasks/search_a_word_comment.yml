@@ -1,0 +1,9 @@
+---
+- name: search a word and comment out
+  ansible.builtin.lineinfile:
+     path: /tmp/sudoers
+     regexp: '(^root*.*)'
+     line: '# \1'
+     backrefs: yes
+     state: present
+     backup: yes

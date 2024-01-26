@@ -1,0 +1,12 @@
+---
+- name: admin tasks new
+  hosts: full
+ 
+  vars_files:
+    - vars/creation_user_grp.yml
+    - vars/user_details.yml
+  tasks:
+    - name: user group creation and password set
+      import_tasks:
+        file: tasks/usergroup.yml
+

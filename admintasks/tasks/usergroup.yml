@@ -1,0 +1,32 @@
+---
+# tasks file for admintasks
+- name: creating mulitple groups
+  group:
+   name: "{{ item }}"
+   state: present
+  loop: "{{ grp_name }}"
+
+- name: creating multiple users
+  user:
+   name: "{{ item }}"
+   state: present
+  loop: "{{ users }}"
+
+- name: adding users to new group
+  user:
+   name: "{{ item }}" 
+   groups: "{{ addongrp }}"
+   append: yes
+  loop: "{{ users }}"
+
+- name: set password for multiple users
+  user:
+   name: "{{ item }}"
+   password: "{{ pass_for_users | password_hash('sha512') }}"
+  loop: "{{ users }}"
+
+#- name: Forcing users to create a password on first login
+#  user:
+#   name: "{{ item.name }}"
+#   force_pwchange: yes
+#  loop: "{{ users }}"

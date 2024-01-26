@@ -1,0 +1,15 @@
+---
+# tasks file for copy-edit-bkup-replace
+- name: Take a back of the file using "copy" module
+  ansible.builtin.copy:
+     src: /etc/kdump.conf
+     dest: /tmp/kdump.conf.{{ ansible_date_time.is08601_basic_short }}
+     backup: yes
+    
+
+- name: Adding a line using "lineinfile" module
+  ansible.builtin.lineinfile:
+     path: /etc/kdump.conf
+     line: "first line adding to a file kdump"
+     state: present
+      

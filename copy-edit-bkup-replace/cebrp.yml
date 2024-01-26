@@ -1,0 +1,13 @@
+---
+- name: copy edit add delete files using ansible modules
+  hosts: full
+
+  tasks:
+#    - name: Talking a backup of a file a kdump configuration and adding a line
+#      import_tasks:
+#        file: tasks/bkup_and_adding_a_line.yml
+#
+     - import_tasks:
+         file: tasks/search_a_word_comment.yml
+     
+

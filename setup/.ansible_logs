@@ -1,0 +1,34 @@
+2024-01-24 03:33:16,809 p=2206 u=root n=ansible | [WARNING]: Unable to parse /etc/ansible/roles/setup/.inventory as an inventory source
+
+2024-01-24 03:33:16,809 p=2206 u=root n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2024-01-24 03:33:16,814 p=2206 u=root n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2024-01-24 03:33:16,971 p=2206 u=root n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: linux
+
+2024-01-24 03:33:17,022 p=2206 u=root n=ansible | PLAY [password change and ssh ky copy] *********************************************************************************************************************************
+2024-01-24 03:33:17,022 p=2206 u=root n=ansible | skipping: no hosts matched
+2024-01-24 03:33:17,022 p=2206 u=root n=ansible | PLAY RECAP *************************************************************************************************************************************************************
+2024-01-24 03:33:41,880 p=2210 u=root n=ansible | PLAY [password change and ssh ky copy] *********************************************************************************************************************************
+2024-01-24 03:33:41,916 p=2210 u=root n=ansible | TASK [Gathering Facts] *************************************************************************************************************************************************
+2024-01-24 03:33:42,172 p=2210 u=root n=ansible | fatal: [test1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname test1: Name or service not known", "unreachable": true}
+2024-01-24 03:33:44,582 p=2210 u=root n=ansible | ok: [node3]
+2024-01-24 03:33:44,590 p=2210 u=root n=ansible | ok: [node2]
+2024-01-24 03:33:44,646 p=2210 u=root n=ansible | ok: [node1]
+2024-01-24 03:33:44,814 p=2210 u=root n=ansible | ok: [tower]
+2024-01-24 03:33:45,110 p=2210 u=root n=ansible | TASK [change password] *************************************************************************************************************************************************
+2024-01-24 03:33:46,516 p=2210 u=root n=ansible | changed: [node2]
+2024-01-24 03:33:46,525 p=2210 u=root n=ansible | changed: [node3]
+2024-01-24 03:33:46,529 p=2210 u=root n=ansible | changed: [node1]
+2024-01-24 03:33:46,534 p=2210 u=root n=ansible | changed: [tower]
+2024-01-24 03:33:46,569 p=2210 u=root n=ansible | TASK [sshkey copy] *****************************************************************************************************************************************************
+2024-01-24 03:33:47,677 p=2210 u=root n=ansible | ok: [node3]
+2024-01-24 03:33:47,772 p=2210 u=root n=ansible | ok: [node1]
+2024-01-24 03:33:47,805 p=2210 u=root n=ansible | ok: [tower]
+2024-01-24 03:33:47,838 p=2210 u=root n=ansible | ok: [node2]
+2024-01-24 03:33:48,368 p=2210 u=root n=ansible | PLAY RECAP *************************************************************************************************************************************************************
+2024-01-24 03:33:48,368 p=2210 u=root n=ansible | node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-01-24 03:33:48,368 p=2210 u=root n=ansible | node2                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-01-24 03:33:48,369 p=2210 u=root n=ansible | node3                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-01-24 03:33:48,369 p=2210 u=root n=ansible | test1                      : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-01-24 03:33:48,369 p=2210 u=root n=ansible | tower                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

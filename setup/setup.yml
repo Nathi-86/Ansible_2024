@@ -1,0 +1,11 @@
+---
+- name: password change and ssh ky copy
+  hosts: linux
+
+  vars_files:
+    - vars/mg-pas.yml
+
+  tasks:
+    - name: ssh key copy and password update
+      import_tasks:
+        file: tasks/user-group.yml

@@ -1,0 +1,13 @@
+---
+- name: change password
+  user:
+   name: "{{ usr1 }}"
+   state: present
+   password: "{{ usr1_pas | password_hash('sha512') }}"
+   update_password: always
+
+- name: sshkey copy
+  authorized_key:
+    user: "{{ usr1 }}"
+    state: present
+    key: "{{ lookup('file', '/home/ansi/.ssh/id_rsa.pub') }}"

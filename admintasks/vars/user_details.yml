@@ -1,0 +1,15 @@
+---
+
+grp_name:
+    - "fisgrp"
+    - "wiprogrp"
+    - "pronto"
+    
+users:
+    - "goole"
+    - "yahoo"
+    - "facebook"
+
+addongrp:
+    - "pronto"
+
