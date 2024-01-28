@@ -1,0 +1,10 @@
+---
+
+- name: Copying a file from local to remote hosts using #### copy module #####
+  ansible.builtinfile.copy:
+     src: file_copy_1
+     dest: /tmp/
+     owner: ansi
+     mode: '0600'
+
+- name: 

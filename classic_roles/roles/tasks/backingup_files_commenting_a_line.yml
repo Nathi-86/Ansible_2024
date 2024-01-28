@@ -1,0 +1,61 @@
+---
+
+
+- name: Backing up a file using ############## lineinfile module ####################
+  ansible.builtin.lineinfile:
+     src: /etc/sudoers
+     dest: /tmp/sudoers.{{ ansible_date_time.iso8601_basic_short }}
+
+- name: Backing up a file using Examples
+  ansible.builtin.lineinfile:
+     dest: /etc/sudoers
+     backup: yes
+
+- name: Backing up a file using Examples2
+  ansible.builtin.lineinfile:
+     dest: /etc/sudoers
+     backup_dir: /home/
+     backup: yes
+
+- name: Adding a line using ############## lineinfile module #######################
+  ansible.builtin.lineinfile:
+     path: /sudoers
+     line: "dummyroot    ALL=(ALL)       ALL"
+     state: present
+     backup: yes
+
+
+- name: Adding a line before a line
+  ansible.builtin.lineinfile:
+     dest: /tmp/sudoers
+     line: "%sample    ALL=(ALL)       ALL"
+     insertbefore: "%wheel  ALL=(ALL)       ALL"
+     state: present
+
+- name: Adding a line after a line
+  ansible.builtin.lineinfile:
+     dest: /tmp/sudoers
+     line:  "%sample    ALL=(ALL)       ALL"
+     insertafter: "%wheel  ALL=(ALL)       ALL"
+     state: present
+
+- name: Adding content to a file using ######### blockinfile module ################
+  ansible.builtin.blockinfile:
+     dest: /etc/hosts
+     state: present
+     content: |
+       {{ ipaddress1 }}  {{ hostname1 | upper }}
+       {{ ipaddress2 }}  {{ hostname2 | lower }}
+       {{ ipaddress3 }}  {{ hostname2 | upper }}
+    
+ - name: Search a word and Commenting a line # Using lineinfile module ##############################
+   ansible.builtin.lineinfile:
+      path: /tmp/sudoers
+      regexp: '(^root*.*)'
+      line: '# \1'
+      backrefs: yes
+      state: present
+      backup: yes
+     
+
+
