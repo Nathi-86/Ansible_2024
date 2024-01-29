@@ -7,4 +7,14 @@
      owner: ansi
      mode: '0600'
 
-- name: 
+- name: Copying file from remote to local using #### Fetch module ############ 
+  ansible.builtin.fetch:
+     src: "/etc/fstab"
+     dest: "backups/{{ inventory_hostname }}/"
+     flat: yes
+
+- name: Copying file from remote to local using #### Fetch methhod 2 ############
+  ansible.builtin.fetch:
+     src: "/etc/hosts"
+     dest: "backups/fstab.{{ inventory_hostname }}.{{ ansible_date_time.date }}"
+     flat: yes
