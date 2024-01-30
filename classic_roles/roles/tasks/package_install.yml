@@ -1,0 +1,17 @@
+---
+
+- name: Basic package installation using ####### Yum module ########
+  ansible.builtin.yum:
+     name:
+       - strace
+       - httpd
+     state: present
+
+- name: Pacakge installation using #### with_items #################
+  ansible.builtin.yum:
+     name: "{{ item }}
+     state: absent
+  with_items: "{{ yum_pkg_list }}"
+
+
+- name: package installation and making sure if the package exists if not proceed to install on all hosts
