@@ -1,0 +1,13 @@
+---
+
+- name: Group creation 
+  ansible.builtin.group:
+      name: "{{ item }}"
+      state: present
+  loop: "{{ grp_roles }}"
+
+- name: user Creation
+  ansible.builtin.user:
+     name: "{{ item }}"
+     state: present
+  loop: "{{ usr_roles }}"
