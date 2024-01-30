@@ -4,7 +4,7 @@
   ansible.builtin.user:
      name: "{{ local_user1 }}
      state: present
-  delegate_to: 127.0.0.1
+  delegate_to: "{{ local_host_ansible }}"
      
 
 - name: creating a ssh-key for a user
@@ -13,6 +13,7 @@
      generate_ssh_key: yes
      ssh_key_bits: 2048
      ssh_key_file: .ssh/id_rsa.pub
+  delegate_to: "{{ local_host_ansible }}"
 
 - name: copying ssh to all nodes
   ansible.builtin.authorized_key:
