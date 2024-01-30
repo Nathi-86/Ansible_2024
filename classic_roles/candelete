@@ -1,0 +1,72 @@
+---
+- hosts: all
+  connection: ssh
+  gather_facts: yes
+  user: ansi-adm
+  become: yes
+  become_user: root
+
+
+  tasks:
+
+    - name: Ensure "pwgen" package installed or not
+      shell: if rpm -qa | grep pwgen | grep -v grep  > /dev/null; then echo "package_installed"; else echo "package_not_installed"; fi
+      ignore_errors: yes
+      register: rpm_pkg_check
+    - debug:
+        var: rpm_pkg_check.stdout
+
+    - name: Download pwgen package, if doesn't exist.
+      get_url:
+        url: https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/p/pwgen-2.08-1.el7.x86_64.rpm
+        dest: /tmp/
+      when: rpm_pkg_check.stdout  == "package_not_installed" and ansible_distribution == 'RedHat'
+
+    - name: Ensure package is downloaded
+      shell: if  ls -l /tmp/ | grep -i pwgen | awk '{print $9}'| grep -v grep  > /dev/null; then echo "pkg_avail"; else echo "pkg_not_avail"; fi
+      ignore_errors: yes
+      register: pkg_chk
+    - debug:
+        var: pkg_chk.stdout
+
+    - name: Install the downloaded pkge pwgen
+      yum:
+        name: /tmp/pwgen-2.08-1.el7.x86_64.rpm
+        state: present
+      when: pkg_chk.stdout  == "pkg_avail" and ansible_distribution == 'RedHat'
+
+    - name: Again ensuring pwgen is installed or not
+      shell: if rpm -qa | grep pwgen | grep -v grep > /dev/null; then echo "new_package_installed"; else echo "new_package_not_installed"; fi
+      register: rpm_status_changed
+    - debug:
+        msg: Status of pkg is "{{ rpm_status_changed.stdout }}"
+
+    - name: Generating Unix password for each host with 15 characters. Continue this process only if pkge is already installed
+      shell: pwgen -s -1 -y 16
+      register: uniq_root_pass
+      when: rpm_status_changed.stdout  == "new_package_installed"
+
+    - debug:
+        var: uniq_root_pass.stdout
+
+    - name: Creating hash password for root user
+      shell: python -c 'import crypt; print(crypt.crypt("{{uniq_root_pass.stdout}}", crypt.mksalt(crypt.METHOD_SHA512)))'
+      register: new_root_password
+    - debug:
+        var: new_root_password.stdout
+
+    - name: Changing root password
+      user:
+        name: root
+        password: "{{ new_root_password.stdout }}"
+        update_password: always
+
+    - name: Ensure the root password is changed.
+      shell: getent shadow| grep root| grep ":"|cut -f -2 -d ":"|sed 's/root://'
+      register: password_changed
+
+    -
+	
+	
+#######################################################################
+
