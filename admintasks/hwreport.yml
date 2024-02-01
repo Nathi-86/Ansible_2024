@@ -1,0 +1,35 @@
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: file creation
+      file:
+          path: /tmp/hwreport_new
+          state: touch
+          mode: 0600
+
+    - name: hwreport
+      ansible.builtin.set_fact:
+          hostname: "{{ ansible_hostname }}"
+          memory: "{{ ansible_memtotal_mb  }}"
+          bios: "{{ ansible_bios_version }}"
+          cpu: "{{ ansible_processor }}"
+          disk_size_vd: "{{ ansible_devices['dm-0']['size'] }}"
+
+    - name: copy to destination
+      ansible.builtin.copy:
+        content: |
+          #hwreport
+          hostname={{ hostname | default('none') }}
+          memory={{ memory | default('none') }}
+          bios={{ bios  | default('none') }}
+          cpu={{ cpu | default('none') }}
+          disk_size_vd={{ disk_size_vd | default('none') }}
+          disk_size_vd={{ disk_size_vd | default('none') }}
+
+        dest: /tmp/hwreport_new
+
+
+      
+
