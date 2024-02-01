@@ -1,4 +1,6 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-"{{ ipadd1 }}   "{{node1
-192.168.0.151   ansible
+{{ ansible_all_ipv4_addresses }} {{ ansible_hostname }} {{ ansible_hostname | upper }}
+{{ ipadd1 }}    {{ node1 }}   {{ ansi_name1 }}
+{{ ipadd2 }}    {{ node1 }}   {{ ansi_name2 }}
+{{ ipadd3 }}    {{ node3 }}   {{ ansi_name3 }}
