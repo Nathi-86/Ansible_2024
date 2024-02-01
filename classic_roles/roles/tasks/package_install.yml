@@ -2,16 +2,77 @@
 
 - name: Basic package installation using ####### Yum module ########
   ansible.builtin.yum:
-     name:
-       - strace
-       - httpd
+     name: strace
      state: present
 
-- name: Pacakge installation using #### with_items #################
+- name: Pacakge installation using #### with_items and handlers #################
   ansible.builtin.yum:
      name: "{{ item }}
-     state: absent
+     state: present
   with_items: "{{ yum_pkg_list }}"
-
-
+  notify:
+      - enable httpd
+      - restart httpd
+    
 - name: package installation and making sure if the package exists if not proceed to install on all hosts
+  ansible.builtin.shell: if rpm -qa | grep -i pwgen| grep -v grep > /dev/null; then echo "pkg_installed"; else echo "pkg_not_installed"; fi
+  ignore_error: yes
+  register: rpm_pkg_check
+- debug:
+     var: rpm_pkg_check.stdout
+
+- name: Download the rpm from amazon S3 bucket for RHEL
+  ansible.builtin.get_url:
+     url: "{{ amazon_s3_bucket }}"
+     dest: /tmp
+  when: rpm_pkg_check.stdout == "pkg_not_installed" and ansible_distribution == 'RedHat' and ansible_distribution_major_version >= "8"
+
+- name: Copy rpm from from files for OracleLinux
+  ansible.builtin.copy:
+    src: "{{ local_rpm_for_oel }}"
+    dest: /tmp
+  when: rpm_pkg_check.stdout == "pkg_not_installed" and ansible_distribution == 'RedHat' and ansible_distribution_major_version >= "9"
+
+- name: Ensuring rpm is placed in /tmp for installation
+  ansible.builtin.shell: if ls -l /tmp | grep pwgen | awk '{print $9}' | grep -v grep > /dev/null; then echo "pkg_available"; else echo "pkg_not_available"; fi
+  ignore_erros: yes
+  register: pkg_check_on_dest
+- debug:
+     var: pkg_check_on_dest.stdout
+
+- name: Install rpm on remote hosts stage1
+  ansible.builtin.yum:
+    name: /tmp/"{{ rpm_redhat_8_and_above }}"
+    state: present
+  when: pkg_check_on_dest.stdout == "pkg_available" and ansible_distribution_major_version >= "8"
+
+- name: Install rpm on remote hosts stage2
+  ansible.builtin.yum:
+     name: /tmp/"{{ rpm_redhat_9_and_above }}"
+     state: present
+  when: pkg_check_on_dest.stdout == "pkg_available" and ansible_distribution_major_version >= "9"
+
+- name: Ensuring the pkg installed or not on all the hosts
+  ansible.builtin.shell: if rpm -qa | grep pwgen | grep -v grep > /dev/null; then echo "installed"; else echo "not_installed"; fi
+  register: rpm_pkg_status_changed
+- debug: 
+    msg: Status of pkg is "{{ rpm_pkg_status_changed.stdout }}"
+
+- name: Generating unix password with 15 characters. Continue this process only if pkg is installed
+  ansible.builtin.shell: pwgen -s -1 -y 16
+  register: unix_root_pass
+  when: rpm_pkg_status_changed.stdout == "installed"
+- debug:
+     var: unix_root_pass.stdout
+
+- name: Changing root password on all hosts
+  ansible.builtin.user:
+    name: root
+    password: "{{ unix_root_pass.stdout | password_hash('sha512') }}"
+    update_password: always
+
+ - name: Ensure root password is changed
+   ansible.builtin.shell: getent shadow| grep root| grep ":"|cut -f -2 -d ":"|sed 's/root://'
+   register: root_pass_changed
+ - debug:
+      var: root_pass_changed.stdout on {{ ansible_hostname }}
