@@ -9,5 +9,8 @@
 #
      - import_tasks:
          file: tasks/search_a_word_comment.yml
+<<<<<<< HEAD
      
 
+=======
+>>>>>>> bcbdecc (new structure of roles)
