@@ -1,3 +1,10 @@
 ---
 
-- name: 
+- name: Example of using template using loop 
+  ansible.builtin.template:
+     src: {{ src }}
+     dest: {{ dest }}
+  loop: 
+    - { src: {{ src1 }}, dest: {{ dest1 }} }
+    - { src: {{ src2 }}, dest: {{ dest2 }} }
+    - { src: {{ src3 }}, dest: {{ dest3 }} }
