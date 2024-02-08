@@ -1,0 +1,8 @@
+---
+- import_tasks: user_group.yml
+- import_tasks: creating_sshkey_and_passing.yml
+- import_tasks: package_install.yml
+- import_tasks: user_password_set.yml
+- import_tasks: copying_files_to_remote_hosts.yml
+- import_tasks: backingup_files_commenting_a_line.yml
+- import_tasks: using_jinja2.yml
