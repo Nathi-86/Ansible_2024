@@ -1,1 +1,8 @@
+---
 
+yum_pkg_list:
+    - httpd
+    - tree
+    - sos
+
+amazon_s3_bucket: need to provide s3 url
