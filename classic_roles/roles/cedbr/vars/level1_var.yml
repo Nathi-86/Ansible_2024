@@ -1,0 +1,21 @@
+---
+grp_roles:
+   - devops
+   - scrum
+   - unix
+   - windows
+   - common
+
+usr_roles: 
+   - devops1
+   - scrum1
+   - unix1
+   - windows1
+
+half_role_group:
+   - common
+
+local_user1: 
+   - adminall
+   
+local_host_ansible: 127.0.0.1 
