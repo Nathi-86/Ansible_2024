@@ -9,6 +9,7 @@ Requirements
 Ansible master node and few remote hosts
 
 OS used: RHEL8, OEL8 and RHEL9.
+RHEL systems are subscribed to Redhat
 
 Role Variables
 --------------
