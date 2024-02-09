@@ -34,7 +34,7 @@
       immediate: yes
   loop: "{{ service_firwlld }}"
   notify:
-      - restart firewalld
+      - Restart firewalld
 
 - name: Enabling ports 
   ansible.posix.firewalld:
