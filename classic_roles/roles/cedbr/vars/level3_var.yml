@@ -1,1 +1,24 @@
+---
 
+ipadd1: 192.168.0.100
+ipadd2: 192.168.0.101
+ipadd3: 192.168.0.102
+node1: devserver1
+node2: appserver1
+node3: prodserver1
+ansi_name1: devserver1.mylab.com
+ansi_name2: appserver1.mylab.com
+ansi_name3: prodserver1.mylab.com
+lockdown_para: yes
+value1: appserv.ntp.org
+value2: devserv.ntp.org
+value3: prodserv. ntp.org
+value4: commserv.ntp.org
+src1: chrony.conf.j2
+dest1: /tmp/chrony.conf
+src2: firewalld.config.j2
+dest2: /etc/firewalld.config
+src3: host_deatils.j2
+dest3: /tmp/host_deatils
+src4: hosts.j2
+dest4: /etc/hosts
