@@ -3,6 +3,8 @@ Role Name
 
 Role name "classic_roles" - Its a classic way of using roles. This role have the below tasks for practising/testing purpose. 
 
+This play book works fine on RHEL8, OEL8 and RHEL9.
+
 content:
    -  user_group.yml
    -  creating_sshkey_and_passing.yml
@@ -17,6 +19,8 @@ Requirements
 
 Ansible master node - 1 - Ansible installed with latest version and its subscribed to Redhat
 Remote hosts - depends on your idea.
+
+OS used: RHEL8, OEL8 and RHEL9.
 
 Role Variables
 --------------
