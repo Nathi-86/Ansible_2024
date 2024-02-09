@@ -1,3 +1,14 @@
 ---
 
-- name: 
+- name: Enabling httpd
+  ansible.builtin.service:
+     name: httpd
+     enabled: yes
+
+ - name: Restart httpd
+   ansible.builtin.service:
+      name: httpd
+      state: restarted
+
+ - name: Firewall-cmd 
+   ansible.posix.firewalld:
