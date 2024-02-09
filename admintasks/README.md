@@ -12,6 +12,8 @@ Requirements
 
 Ansible master node and few remote nodes.
 
+OS used: RHEL8, OEL8 and RHEL9.
+
 Role Variables
 --------------
 
