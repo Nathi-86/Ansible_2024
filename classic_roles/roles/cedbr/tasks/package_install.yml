@@ -38,7 +38,7 @@
 
 - name: Enabling ports 
   ansible.posix.firewalld:
-     port: "{{ item }}"
+     port: "{{ item }}"/tcp
      permanent: yes
      immediate: yes
      state: enabled
