@@ -21,6 +21,7 @@ Ansible master node - 1 - Ansible installed with latest version and its subscrib
 Remote hosts - depends on your idea.
 
 OS used: RHEL8, OEL8 and RHEL9.
+RHEL systems are subscribed to Redhat
 
 Role Variables
 --------------
