@@ -9,7 +9,8 @@ Requirements
 Ansible master node - 1 - Ansible installed with latest version and its subscribed to Redhat
 Remote hosts - depends on your idea.
 
-OS used: RHEL8, OEL8 and RHEL9.
+OS used: RHEL8, OEL8 and RHEL9. 
+RHEL systems are subscribed to Redhat
 
 Role Variables
 --------------
