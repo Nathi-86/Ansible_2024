@@ -1,31 +1,31 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Role name "setup" - Basic setting up of user password and copying sshkey to remote host.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible master node - 1 - Ansible installed with latest version and its subscribed to Redhat
+Remote hosts - depends on your idea.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+mg-pas.yml - have all the valiables which used in this play and its secured with ansible-vault and valut password is placed under vars as ".all-pass".
+
+And the parameter used is "vault_password_file = ./vars/.all-pass"
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+As authorized_key module is not such comapatible with the latest version of ansible got error when tried to run the play. 
 
-Example Playbook
-----------------
+To ovecome this, have used collections from ansible-galaxy to collect the latest collection of "authorized_key" module.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Once its downloaded locally we need to mention this in ansible.cfg file to get the playbook work.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+"COLLECTIONS_PATH = /collections"
 
 License
 -------
@@ -35,4 +35,5 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+https://github.com/Nathi-86/Ansible_2024
+
