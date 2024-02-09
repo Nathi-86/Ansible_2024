@@ -18,6 +18,14 @@
   tags: 
      - yum_pkg_list
 
+- name: Copying firwallcmd config file using template module with small config changes
+  ansible.builtin.templates:
+       src: firwallcmd.conf.j2
+       dest: /etc/firwalld/firewalld.conf
+  nofity:
+      - Enable firewalld
+      - Restart firewalld
+
 - name: Enabling service using firewall-cmd
   ansible.posix.firewalld:
       service: "{{ item }}"
@@ -26,7 +34,6 @@
       immediate: yes
   loop: "{{ service_firwlld }}"
   notify:
-      - Enable firewalld
       - restart firewalld
 
 - name: Enabling ports 
