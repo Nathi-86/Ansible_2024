@@ -24,9 +24,3 @@
    name: "{{ item }}"
    password: "{{ pass_for_users | password_hash('sha512') }}"
   loop: "{{ users }}"
-
-#- name: Forcing users to create a password on first login
-#  user:
-#   name: "{{ item.name }}"
-#   force_pwchange: yes
-#  loop: "{{ users }}"
