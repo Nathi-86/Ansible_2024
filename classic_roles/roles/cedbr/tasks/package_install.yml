@@ -17,6 +17,29 @@
       - Restart httpd
   tags: 
      - yum_pkg_list
+
+- name: Enabling service using firewall-cmd
+  ansible.posix.firewalld:
+      service: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: yes
+  loop: "{{ service_firwlld }}"
+  notify:
+      - Enable firewalld
+      - restart firewalld
+
+- name: Enabling ports 
+  ansible.posix.firewalld:
+     port: "{{ item }}"
+     permanent: yes
+     immediate: yes
+     state: enabled
+  loop: "{{ port_list }}"
+  notify:
+      - Reload firewalld
+        
+  
     
 - name: package installation and making sure if the package exists if not proceed to install on all hosts
   ansible.builtin.shell: if rpm -qa | grep -i pwgen| grep -v grep > /dev/null; then echo "pkg_installed"; else echo "pkg_not_installed"; fi
