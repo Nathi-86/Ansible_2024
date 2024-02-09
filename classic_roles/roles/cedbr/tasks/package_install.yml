@@ -45,9 +45,7 @@
   loop: "{{ port_list }}"
   notify:
       - Reload firewalld
-        
-  
-    
+      
 - name: package installation and making sure if the package exists if not proceed to install on all hosts
   ansible.builtin.shell: if rpm -qa | grep -i pwgen| grep -v grep > /dev/null; then echo "pkg_installed"; else echo "pkg_not_installed"; fi
   ignore_error: yes
