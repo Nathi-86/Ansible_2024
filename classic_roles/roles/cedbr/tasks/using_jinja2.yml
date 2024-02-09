@@ -8,3 +8,4 @@
     - { src: {{ src1 }}, dest: {{ dest1 }} }
     - { src: {{ src2 }}, dest: {{ dest2 }} }
     - { src: {{ src3 }}, dest: {{ dest3 }} }
+    - { src: {{ src4 }}, dest: {{ dest4 }} }
