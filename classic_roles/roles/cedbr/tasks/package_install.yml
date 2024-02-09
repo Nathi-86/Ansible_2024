@@ -13,8 +13,8 @@
      state: present
   with_items: "{{ yum_pkg_list }}"
   notify:
-      - enable httpd
-      - restart httpd
+      - Enable httpd
+      - Restart httpd
   tags: 
      - yum_pkg_list
     
