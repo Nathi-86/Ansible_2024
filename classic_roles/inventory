@@ -1,1 +1,10 @@
+[rhel8_9]
+node1
+node3
 
+[oel8]
+node2
+
+[full:children]
+rhel8_9
+oel8
