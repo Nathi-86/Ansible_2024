@@ -1,1 +1,20 @@
+---
 
+- name: Group creation using ###### loop module #########
+  ansible.builtin.group:
+      name: "{{ item }}"
+      state: present
+  loop: "{{ grp_roles }}"
+
+- name: user Creation using ####### loop module ##########
+  ansible.builtin.user:
+     name: "{{ item }}"
+     state: present
+  loop: "{{ usr_roles }}"
+
+- name: user or group creation using ###### with_items ###
+  ansible.builtin.user:
+     name: "{{ item }}"
+     groups: "{{ half_role_group }}"
+  with_items: :{{ usr_roles }}"
+     
