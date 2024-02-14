@@ -26,7 +26,9 @@ RHEL systems are subscribed to Redhat
 Role Variables
 --------------
 
-Yet to set valut - in progress
+vault_password_file = ./vars/.lev1 --> by ansible-vault
+vault_identity_list = secvalu@vars/.lev2  --> by labeling the valut password
+vault_identity_list = thirdsec@vars/.lev3 --> by labeling the valut password
 
 Dependencies
 ------------
