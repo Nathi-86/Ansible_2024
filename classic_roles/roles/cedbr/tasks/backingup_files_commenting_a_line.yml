@@ -48,11 +48,11 @@
        {{ ipaddress2 }}  {{ hostname2 | lower }}
        {{ ipaddress3 }}  {{ hostname2 | upper }}
     
- - name: Search a word and Commenting a line # Using lineinfile module ##############################
-   ansible.builtin.lineinfile:
-      path: /tmp/sudoers
-      regexp: '(^root*.*)'
-      line: '# \1'
-      backrefs: yes
-      state: present
-      backup: yes
+- name: Search a word and Commenting a line # Using lineinfile module ##############################
+  ansible.builtin.lineinfile:
+     path: /tmp/sudoers
+     regexp: '(^root*.*)'
+     line: '# \1'
+     backrefs: yes
+     state: present
+     backup: yes

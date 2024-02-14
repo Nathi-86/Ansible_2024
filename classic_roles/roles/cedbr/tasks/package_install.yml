@@ -19,10 +19,10 @@
      - yum_pkg_list
 
 - name: Copying firwallcmd config file using template module with small config changes
-  ansible.builtin.templates:
-       src: firwallcmd.conf.j2
-       dest: /etc/firwalld/firewalld.conf
-  nofity:
+  ansible.builtin.template:
+     src: firwallcmd.conf.j2
+     dest: /etc/firwalld/firewalld.conf
+  notify:
       - Enable firewalld
       - Restart firewalld
 
@@ -38,7 +38,7 @@
 
 - name: Enabling ports 
   ansible.posix.firewalld:
-     port: "{{ item }}"/tcp
+     port: "{{ item }}/tcp"
      permanent: yes
      immediate: yes
      state: enabled
@@ -48,7 +48,7 @@
       
 - name: package installation and making sure if the package exists if not proceed to install on all hosts
   ansible.builtin.shell: if rpm -qa | grep -i pwgen| grep -v grep > /dev/null; then echo "pkg_installed"; else echo "pkg_not_installed"; fi
-  ignore_error: yes
+  ignore_errors: yes
   register: rpm_pkg_check
 - debug:
      var: rpm_pkg_check.stdout
@@ -67,7 +67,7 @@
 
 - name: Ensuring rpm is placed in /tmp for installation
   ansible.builtin.shell: if ls -l /tmp | grep pwgen | awk '{print $9}' | grep -v grep > /dev/null; then echo "pkg_available"; else echo "pkg_not_available"; fi
-  ignore_erros: yes
+  ignore_errors: yes
   register: pkg_check_on_dest
 - debug:
      var: pkg_check_on_dest.stdout
@@ -103,8 +103,8 @@
     password: "{{ unix_root_pass.stdout | password_hash('sha512') }}"
     update_password: always
 
- - name: Ensure root password is changed
-   ansible.builtin.shell: getent shadow| grep root| grep ":"|cut -f -2 -d ":"|sed 's/root://'
-   register: root_pass_changed
- - debug:
-      var: root_pass_changed.stdout on {{ ansible_hostname }}
+- name: Ensure root password is changed
+  ansible.builtin.shell: getent shadow| grep root| grep ":"|cut -f -2 -d ":"|sed 's/root://'
+  register: root_pass_changed
+- debug:
+     var: root_pass_changed.stdout on {{ ansible_hostname }}

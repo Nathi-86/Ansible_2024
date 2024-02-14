@@ -1,1 +1,5 @@
-
+---
+- name: classic_roles Play
+  hosts: full
+  roles:
+    - cedbr
