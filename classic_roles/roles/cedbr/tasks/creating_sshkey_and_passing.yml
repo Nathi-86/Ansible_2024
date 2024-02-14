@@ -1,11 +1,9 @@
 ---
-
-- name: Creating a local user in ansible host
+- name: Creating a local user in master node
   ansible.builtin.user:
-     name: "{{ local_user1 }}
+     name: "{{ local_user1 }}"
      state: present
   delegate_to: "{{ local_host_ansible }}"
-     
 
 - name: creating a ssh-key for a user
   ansible.builtin.user:
@@ -17,6 +15,6 @@
 
 - name: copying ssh to all nodes
   ansible.builtin.authorized_key:
-     name: "{{ local_user1 }}
+     name: "{{ local_user1 }}"
      state: present
      key: "{{ lookup('file', '/home/{{ local_user1 }}/.ssh/id_rsa.pub') }}"

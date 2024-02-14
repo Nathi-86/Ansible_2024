@@ -1,5 +1,4 @@
 ---
-
 - name: Copying a file from local to remote hosts using #### copy module #####
   ansible.builtinfile.copy:
      src: file_copy_1
@@ -13,7 +12,7 @@
      dest: "backups/{{ inventory_hostname }}/"
      flat: yes
 
-- name: Copying file from remote to local using #### Fetch methhod 2 ############
+- name: Copying file from remote to local using #### Fetch methhod 2 ##########
   ansible.builtin.fetch:
      src: "/etc/hosts"
      dest: "backups/fstab.{{ inventory_hostname }}.{{ ansible_date_time.date }}"
